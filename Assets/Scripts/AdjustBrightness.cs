@@ -12,7 +12,8 @@ public class AdjustBrightness : MonoBehaviour
     TextMeshProUGUI debugtxt;
     SensorManager sensorManager;
     [SerializeField]
-    Toggle toggleSensors;
+    private ToggleButton toggleButton;
+    private bool isOn = false;
     BrightnessManager brightnessManager;
 
     private void Start()
@@ -20,6 +21,7 @@ public class AdjustBrightness : MonoBehaviour
         sensorManager = SensorManager.Instance;
         brightnessManager = BrightnessManager.Instance;
         sensorManager.OnAttitude += AdjustSliderBrightness;
+        toggleButton.Clicked += OnToggleButtonClicked;
     }
 
     private void Update()
@@ -31,11 +33,14 @@ public class AdjustBrightness : MonoBehaviour
     {
         sensorManager.OnAttitude -= AdjustSliderBrightness;
     }
-
+    void OnToggleButtonClicked(bool isOn)
+    {
+        this.isOn = isOn;
+    }
     void AdjustSliderBrightness(Quaternion q)
     {
         debugtxt.text = $"{q.x}, {q.y}, {q.z}";
-        if (toggleSensors.isOn)
+        if (isOn)
         {
             slider.value = q.x * 2f;
             brightnessManager.SetBrightnessLevel(q.x * 2f);
