@@ -6,12 +6,20 @@ public class SoundManager : SingletonPattern<SoundManager>
 {
     
     public AudioClip clip;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void PlaySound()
     {
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        audioSource.PlayOneShot(clip);
     }
     public void Stop()
     {
-        GetComponent<AudioSource>().Stop();
+        audioSource.Stop();
     }
 }
