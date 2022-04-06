@@ -44,6 +44,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Light"",
+                    ""type"": ""Value"",
+                    ""id"": ""3c22a0b5-702c-4e66-b7f5-ae99b42a5833"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Attitude"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff15b1a3-a970-4ed2-a88d-2cb9dc48402a"",
+                    ""path"": ""<LightSensor>/lightLevel"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Light"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Sensors = asset.FindActionMap("Sensors", throwIfNotFound: true);
         m_Sensors_Acceleration = m_Sensors.FindAction("Acceleration", throwIfNotFound: true);
         m_Sensors_Attitude = m_Sensors.FindAction("Attitude", throwIfNotFound: true);
+        m_Sensors_Light = m_Sensors.FindAction("Light", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +160,14 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private ISensorsActions m_SensorsActionsCallbackInterface;
     private readonly InputAction m_Sensors_Acceleration;
     private readonly InputAction m_Sensors_Attitude;
+    private readonly InputAction m_Sensors_Light;
     public struct SensorsActions
     {
         private @Inputs m_Wrapper;
         public SensorsActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Acceleration => m_Wrapper.m_Sensors_Acceleration;
         public InputAction @Attitude => m_Wrapper.m_Sensors_Attitude;
+        public InputAction @Light => m_Wrapper.m_Sensors_Light;
         public InputActionMap Get() { return m_Wrapper.m_Sensors; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Attitude.started -= m_Wrapper.m_SensorsActionsCallbackInterface.OnAttitude;
                 @Attitude.performed -= m_Wrapper.m_SensorsActionsCallbackInterface.OnAttitude;
                 @Attitude.canceled -= m_Wrapper.m_SensorsActionsCallbackInterface.OnAttitude;
+                @Light.started -= m_Wrapper.m_SensorsActionsCallbackInterface.OnLight;
+                @Light.performed -= m_Wrapper.m_SensorsActionsCallbackInterface.OnLight;
+                @Light.canceled -= m_Wrapper.m_SensorsActionsCallbackInterface.OnLight;
             }
             m_Wrapper.m_SensorsActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +196,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Attitude.started += instance.OnAttitude;
                 @Attitude.performed += instance.OnAttitude;
                 @Attitude.canceled += instance.OnAttitude;
+                @Light.started += instance.OnLight;
+                @Light.performed += instance.OnLight;
+                @Light.canceled += instance.OnLight;
             }
         }
     }
@@ -178,5 +207,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     {
         void OnAcceleration(InputAction.CallbackContext context);
         void OnAttitude(InputAction.CallbackContext context);
+        void OnLight(InputAction.CallbackContext context);
     }
 }
