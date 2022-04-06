@@ -2,25 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : SingletonPattern<SoundManager>
 {
-    [SerializeField]
-    AudioSource source;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public AudioClip clip;
+    public void PlaySound()
     {
-       PlaySound(source.clip);
+        GetComponent<AudioSource>().PlayOneShot(clip);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Stop()
     {
-        
-    }
-
-    public void PlaySound(AudioClip clip)
-    {
-        source.PlayOneShot(clip);
+        GetComponent<AudioSource>().Stop();
     }
 }
