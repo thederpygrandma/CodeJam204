@@ -9,9 +9,21 @@ public class AdjustBrightness : MonoBehaviour
     Slider adjustSlider;
 
     SensorManager SensorManager;
-    ToggleSensors ToggleSensors;
+    [SerializeField]
+    ToggleSensors toggleSensors;
 
+    private void Start()
+    {
+        SensorManager = SensorManager.Instance;
+        SensorManager.OnAttitude += AdjustSliderBrightness;
 
+    }
 
-
+    void AdjustSliderBrightness(Quaternion q)
+    {
+        if (toggleSensors.isTriggered)
+        {
+            
+        }
+    }
 }

@@ -8,11 +8,16 @@ public class ToggleSensors : MonoBehaviour, ButtonScript
 {
     Button button;
 
-    bool isTriggered;
+    public bool isTriggered;
 
     //protected SoundManager soundmanager;
 
     [SerializeField] AudioClip _clip;
+
+    private void Start()
+    {
+        button.onClick.AddListener(Toggle);
+    }
 
     public void Toggle()
     {
@@ -21,7 +26,6 @@ public class ToggleSensors : MonoBehaviour, ButtonScript
             TurnOff();
         } else 
             TurnOn();
-        
     }
 
     public void TurnOff()
