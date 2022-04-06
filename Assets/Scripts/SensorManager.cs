@@ -42,13 +42,9 @@ public class SensorManager : SingletonPattern<SensorManager>
 
         Debug.Log(LightSensor.current != null);
 
-        //Debug.Log(Accelerometer.current != null);
-        //Debug.Log(AttitudeSensor.current != null);
         input.Sensors.Attitude.performed += AttitudeChange;
         input.Sensors.Acceleration.performed += AccelerationChange;
         input.Sensors.Light.performed += LightLevelChange;
-
-        
     }
 
     private void LightLevelChange(InputAction.CallbackContext ctx)
