@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ToggleSensors : MonoBehaviour, ButtonScript
 {
+    [SerializeField]
     Button button;
 
     public bool isTriggered;
