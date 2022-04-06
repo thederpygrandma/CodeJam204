@@ -5,7 +5,18 @@ using UnityEngine.InputSystem;
 
 public class ToggleSensors : ButtonScript
 {
+    protected override void Toggle()
+    {
+        
+    }
 
-  
+    protected override void TurnOff()
+    {
+        
+    }
 
+    protected override void TurnOn()
+    {
+        
+    }
 }
