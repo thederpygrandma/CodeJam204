@@ -4,7 +4,11 @@ using UnityEngine.UI;
 
 public class ToggleButton : MonoBehaviour
 {
-    
+    public delegate void IsClickedEvent(bool isOn);
+    public event IsClickedEvent Clicked;
+
+    private bool isOn = false;
+
     [SerializeField]
     private Color offColor;
     [SerializeField]
@@ -40,11 +44,16 @@ public class ToggleButton : MonoBehaviour
     private void StartAnimation()
     {
         if (isAnimating) return;
+
+        isOn = (mode == -1) ? true : false;
+
         Vector3 pos = _buttonCircle.transform.localPosition;
 
         StartCoroutine(LinearInterpolation(pos.x, -pos.x, _animationDuration));
-        _buttonImage.color = (mode == -1) ? onColor : offColor;
+        _buttonImage.color = (isOn) ? onColor : offColor;
         mode *= -1;
+
+        if (Clicked != null) Clicked(isOn);
     }
 
     IEnumerator LinearInterpolation(float startPosition, float endPosition, float duration)
