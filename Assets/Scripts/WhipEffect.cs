@@ -8,6 +8,7 @@ public class WhipEffect : MonoBehaviour
     float thresh = 3f;
     bool trigger = false;
     private Vector3 accelInfo;
+    public TMPro.TMP_Text text;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,11 @@ public class WhipEffect : MonoBehaviour
         Debug.Log("test2");
     }
 
+    private void Update()
+    {
+        if (text)
+            text.text = "Acceleration " + accelInfo.ToString();
+    }
 
     void Whatever(Vector3 vector)
     {
