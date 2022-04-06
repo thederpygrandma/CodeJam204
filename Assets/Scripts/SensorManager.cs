@@ -18,22 +18,32 @@ public class SensorManager : SingletonPattern<SensorManager>
         input = new Inputs();
     }
 
+    private void OnEnable()
+    {
+        input.Sensors.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Sensors.Disable();
+    }
     private void Start()
     {
         InputSystem.EnableDevice(AttitudeSensor.current);
-        InputSystem.EnableDevice(Accelerometer.current);
-
+        InputSystem.EnableDevice(Accelerometer.current); 
+        Debug.Log(Accelerometer.current != null);
+        Debug.Log(AttitudeSensor.current != null);
         input.Sensors.Attitude.performed += AttitudeChange;
         input.Sensors.Acceleration.performed += AccelerationChange;
     }
-
     private void AccelerationChange(InputAction.CallbackContext ctx)
     {
-        OnAcceleration?.Invoke(ctx.ReadValue<Vector3>());
+        
+        if(OnAcceleration != null) OnAcceleration(ctx.ReadValue<Vector3>());
     }
 
     private void AttitudeChange(InputAction.CallbackContext ctx)
     {
-        OnAttitude?.Invoke(ctx.ReadValue<Quaternion>());
+        if (OnAttitude != null) OnAttitude(ctx.ReadValue<Quaternion>());
     }
 }
