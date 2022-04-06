@@ -14,7 +14,6 @@ public class WhipEffect : MonoBehaviour
     void Start()
     {
         SensorManager.Instance.OnAcceleration += Whatever;
-        Debug.Log("test2");
     }
 
     private void Update()
@@ -31,7 +30,6 @@ public class WhipEffect : MonoBehaviour
             if (!trigger)
             {
                 trigger = true;
-                //GetComponent<AudioSource>().PlayOneShot(clip);
                 SoundManager.Instance.PlaySound();
                 Debug.Log("test");
             }
