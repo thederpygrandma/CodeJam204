@@ -2,21 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class ToggleSensors : ButtonScript
+public class ToggleSensors : MonoBehaviour, ButtonScript
 {
-    protected override void Toggle()
+    Button button;
+
+    bool isTriggered;
+
+    //protected SoundManager soundmanager;
+
+    [SerializeField] AudioClip _clip;
+
+    public void Toggle()
     {
+        if (isTriggered)
+        {
+            TurnOff();
+        } else 
+            TurnOn();
         
     }
 
-    protected override void TurnOff()
+    public void TurnOff()
     {
-        
+        isTriggered = false;
     }
 
-    protected override void TurnOn()
+    public void TurnOn()
     {
-        
+        isTriggered = true;
     }
+
+
+ 
 }
