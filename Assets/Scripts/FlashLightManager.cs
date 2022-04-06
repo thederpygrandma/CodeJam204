@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlashLightManager : SingletonPattern<FlashLightManager>
 {
-    private bool Active;
+    public bool active;
     private AndroidJavaObject camera1;
 
     // code copied from https://stackoverflow.com/questions/25848519/how-turn-on-off-android-flashlight-using-c-sharp-only-in-unity3d 
@@ -23,7 +23,7 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
             camera1.Call("setParameters", cameraParameters);
             ///FIX///// 
             camera1.Call("startPreview");
-            Active = true;
+            active = true;
         }
         else
         {
@@ -44,16 +44,16 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
         {
             camera1.Call("stopPreview");
             camera1.Call("release");
-            Active = false;
+            active = false;
         }
         else
         {
             Debug.LogError("[CameraParametersAndroid] Camera not available");
         }
     }
-    public void Toggle()
+    public void ToggleLight()
     {
-        if (Active)
+        if (active)
         {
             FL_Stop();
         }

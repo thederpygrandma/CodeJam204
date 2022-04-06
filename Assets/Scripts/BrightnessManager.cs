@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DigitalRuby.SimpleLUT;
 
 public class BrightnessManager : SingletonPattern<BrightnessManager>
 {
-    [SerializeField]
-    Light SceneLight;
-
+    public SimpleLUT lightInScene;
     public void SetBrightnessLevel(float val)
     {
-        SceneLight.intensity = val;
+        lightInScene.Amount = val;
     }
 }
