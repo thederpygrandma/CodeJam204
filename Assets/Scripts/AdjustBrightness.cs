@@ -33,6 +33,8 @@ public class AdjustBrightness : MonoBehaviour
     {
         sensorManager.OnAttitude -= AdjustSliderBrightness;
     }
+    
+
     void OnToggleButtonClicked(bool isOn)
     {
         this.isOn = isOn;
