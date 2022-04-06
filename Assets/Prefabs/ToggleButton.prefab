@@ -196,7 +196,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8581379018097472489}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8581379018097472494}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8581379018097472484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,4 +225,3 @@ MonoBehaviour:
   onColor: {r: 0, g: 1, b: 0.09944749, a: 1}
   circleColor: {r: 1, g: 1, b: 1, a: 1}
   _animationDuration: 0.2
-  material: {fileID: 2100000, guid: 2d176ee8ef1c848468de5b1ca7cc43b7, type: 2}
