@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WhipEffect : MonoBehaviour
 {
+    [SerializeField]
+    Toggle toggleWhip;
     float thresh = 2f;
     bool trigger = false;
     private Vector3 accelInfo;
@@ -23,18 +26,21 @@ public class WhipEffect : MonoBehaviour
 
     void Whatever(Vector3 vector)
     {
-        accelInfo = vector;
-        if (accelInfo.magnitude > thresh)
+        if (toggleWhip.isOn)
         {
-            if (!trigger)
+            accelInfo = vector;
+            if (accelInfo.magnitude > thresh)
             {
-                trigger = true;
-                Debug.Log("test");
+                if (!trigger)
+                {
+                    trigger = true;
+                    Debug.Log("test");
+                }
             }
-        }
-        else if (trigger)
-        {
-            trigger = false;
+            else if (trigger)
+            {
+                trigger = false;
+            }
         }
     }
 }
