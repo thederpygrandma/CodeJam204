@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,28 +6,29 @@ using UnityEngine.UI;
 
 public class WhipEffect : MonoBehaviour
 {
-    [SerializeField]
-    Toggle toggleWhip;
     float thresh = 2f;
     bool trigger = false;
     private Vector3 accelInfo;
     public TMPro.TMP_Text text;
+    [SerializeField]
+    private ToggleButton toggleAccelButton;
+    private bool isOn = false;
 
     // Start is called before the first frame update
     void Start()
     {
         SensorManager.Instance.OnAcceleration += Whatever;
+        toggleAccelButton.Clicked += OnToggleAccelClicked;
     }
 
-    private void Update()
+    private void OnToggleAccelClicked(bool isOn)
     {
-        if (text)
-            text.text = "Acceleration " + accelInfo.magnitude.ToString();
-    }
 
+        this.isOn = isOn;
+    }
     void Whatever(Vector3 vector)
     {
-        if (toggleWhip.isOn)
+        if (isOn)
         {
             accelInfo = vector;
             if (accelInfo.magnitude > thresh)
@@ -41,6 +43,9 @@ public class WhipEffect : MonoBehaviour
             {
                 trigger = false;
             }
+        } else
+        {
+
         }
     }
 }

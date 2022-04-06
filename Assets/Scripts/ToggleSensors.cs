@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ToggleSensors : MonoBehaviour, ButtonScript
+public class ToggleSensors : MonoBehaviour, ButtonState
 {
     [SerializeField]
     Button button;
