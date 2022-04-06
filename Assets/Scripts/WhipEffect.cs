@@ -5,7 +5,7 @@ using UnityEngine;
 public class WhipEffect : MonoBehaviour
 {
 
-    float thresh = 3f;
+    float thresh = 2f;
     bool trigger = false;
     private Vector3 accelInfo;
     public TMPro.TMP_Text text;
@@ -19,7 +19,7 @@ public class WhipEffect : MonoBehaviour
     private void Update()
     {
         if (text)
-            text.text = "Acceleration " + accelInfo.ToString();
+            text.text = "Acceleration " + accelInfo.magnitude.ToString();
     }
 
     void Whatever(Vector3 vector)
