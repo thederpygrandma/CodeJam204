@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WhipEffect : MonoBehaviour
 {
-
     float thresh = 2f;
     bool trigger = false;
     private Vector3 accelInfo;
@@ -30,7 +29,6 @@ public class WhipEffect : MonoBehaviour
             if (!trigger)
             {
                 trigger = true;
-                SoundManager.Instance.PlaySound();
                 Debug.Log("test");
             }
         }

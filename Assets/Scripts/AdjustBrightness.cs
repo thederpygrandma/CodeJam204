@@ -37,10 +37,10 @@ public class AdjustBrightness : MonoBehaviour
         debugtxt.text = $"{q.x}, {q.y}, {q.z}";
         if (toggleSensors.isOn)
         {
-            if (q.z >= 0)
+            if (q.x >= 0)
             {
-               slider.value = q.z * 2;
-               brightnessManager.SetBrightnessLevel(q.z * 2);
+               slider.value = q.x * 2;
+               brightnessManager.SetBrightnessLevel(q.x * 2);
             }
         }
         else
