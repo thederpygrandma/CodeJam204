@@ -7,7 +7,6 @@ using TMPro;
 
 public class SensorManager : SingletonPattern<SensorManager>
 {
-    public TextMeshProUGUI debugtxt;
     public delegate void OnAttitudeEvent(Quaternion quat);
     public event OnAttitudeEvent OnAttitude;
 
@@ -40,8 +39,6 @@ public class SensorManager : SingletonPattern<SensorManager>
         InputSystem.EnableDevice(Accelerometer.current);
         InputSystem.EnableDevice(LightSensor.current);
 
-        Debug.Log(LightSensor.current != null);
-
         input.Sensors.Attitude.performed += AttitudeChange;
         input.Sensors.Acceleration.performed += AccelerationChange;
         input.Sensors.Light.performed += LightLevelChange;
@@ -49,8 +46,6 @@ public class SensorManager : SingletonPattern<SensorManager>
 
     private void LightLevelChange(InputAction.CallbackContext ctx)
     {   
-
-        debugtxt.text = ctx.ReadValue<float>().ToString();
         if (OnLightLevel != null) OnLightLevel(ctx.ReadValue<float>());
     }
 

@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 269725829}
   - component: {fileID: 269725828}
   - component: {fileID: 269725827}
+  - component: {fileID: 269725832}
   - component: {fileID: 269725831}
   m_Layer: 0
   m_Name: WhipCaster
@@ -544,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f262de6757284c86878f9a3449435b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 151543229}
+  text: {fileID: 23578991}
   toggleAccelButton: {fileID: 2071679367}
 --- !u!114 &269725828
 MonoBehaviour:
@@ -676,12 +677,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269725826}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c0eff05ba3604a4985fa0b998db1ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 23578991}
+--- !u!114 &269725832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269725826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeefd8897a36b95408837fcd666e30a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1634463297
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +879,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1634463301}
     m_Modifications:
+    - target: {fileID: 8581379017263227815, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.39158
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581379017263227815, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.39158
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581379017263227815, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.39158
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581379017263227815, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 20.22
+      objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472494, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_Name
       value: ToggleButton
@@ -908,15 +937,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.2737
+      value: 1.138822
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.2737
+      value: 1.138822
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.2737
+      value: 1.138822
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -948,11 +977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 19.427
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -127.1
+      value: -125.22
       objectReference: {fileID: 0}
     - target: {fileID: 8581379018097472495, guid: 30fe066010bdf7645b680e10f30a573d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
