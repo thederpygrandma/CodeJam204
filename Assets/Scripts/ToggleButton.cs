@@ -22,6 +22,7 @@ public class ToggleButton : MonoBehaviour
 
     private int mode = -1;
 
+    private RectTransform _rect;
     private Button _button;
     private Image _buttonImage;
     private GameObject _buttonCircle;
@@ -32,6 +33,8 @@ public class ToggleButton : MonoBehaviour
         _button = GetComponent<Button>();
         _buttonImage = GetComponent<Image>();
         _buttonCircle = transform.GetChild(0).gameObject;
+
+        _rect = _buttonCircle.GetComponent<RectTransform>();
 
         _buttonCircleImage = _buttonCircle.GetComponent<Image>();
 
@@ -50,10 +53,14 @@ public class ToggleButton : MonoBehaviour
         Vector3 pos = _buttonCircle.transform.localPosition;
 
         StartCoroutine(LinearInterpolation(pos.x, -pos.x, _animationDuration));
+
         _buttonImage.color = (isOn) ? onColor : offColor;
         mode *= -1;
 
-        if (Clicked != null) Clicked(isOn);
+        if (Clicked != null)
+        {
+            Clicked(isOn);
+        }
     }
 
     IEnumerator LinearInterpolation(float startPosition, float endPosition, float duration)
@@ -67,7 +74,7 @@ public class ToggleButton : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        _buttonCircle.transform.localPosition = new Vector3(endPosition, 0, 0);
+        _buttonCircle.transform.localPosition = new Vector2(endPosition, 0);
         isAnimating = false;
     }
 }

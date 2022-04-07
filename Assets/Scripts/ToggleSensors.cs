@@ -22,23 +22,11 @@ public class ToggleSensors : MonoBehaviour, ButtonState
 
     public void Toggle()
     {
-        if (isTriggered)
-        {
-            TurnOff();
-        } else 
-            TurnOn();
+        
     }
 
-    public void TurnOff()
+    public bool isClicked()
     {
-        isTriggered = false;
+        return isTriggered;
     }
-
-    public void TurnOn()
-    {
-        isTriggered = true;
-    }
-
-
- 
 }
