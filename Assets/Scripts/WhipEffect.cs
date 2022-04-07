@@ -35,6 +35,8 @@ public class WhipEffect : MonoBehaviour
     IEnumerator ToggleHold(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
+        trigger = false;
+        yield return new WaitForSeconds(waitTime);
     }
     void Whatever(Vector3 vector)
     {
@@ -51,6 +53,10 @@ public class WhipEffect : MonoBehaviour
                     sound.PlaySound();
                     StartCoroutine(ToggleHold(waitTime));
                 }
+                /*else if (accelInfo.magnitude < thresh)
+                {
+                    sound.Stop();
+                }*/
             }
         }
     }
