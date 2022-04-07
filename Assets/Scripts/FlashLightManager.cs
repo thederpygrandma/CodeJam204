@@ -6,19 +6,16 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
 {
     public bool active;
     private AndroidJavaObject camera1;
-    AndroidJavaClass cameraClass = new AndroidJavaClass("android.hardware.Camera");
-    WebCamDevice[] devices = WebCamTexture.devices;
+
 
     // code copied from https://stackoverflow.com/questions/25848519/how-turn-on-off-android-flashlight-using-c-sharp-only-in-unity3d 
-
-    private void Start()
-    {
-        int camID = 0;
-        camera1 = cameraClass.CallStatic<AndroidJavaObject>("open", camID);
-    }
-
     public void FL_Start()
     {
+        AndroidJavaClass cameraClass = new AndroidJavaClass("android.hardware.Camera");
+        WebCamDevice[] devices = WebCamTexture.devices;
+        int camID = 0;
+        camera1 = cameraClass.CallStatic<AndroidJavaObject>("open", camID);
+
         if (camera1 != null)
         {
             AndroidJavaObject cameraParameters = camera1.Call<AndroidJavaObject>("getParameters");

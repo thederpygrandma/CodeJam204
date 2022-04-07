@@ -32,7 +32,7 @@ public class LightsensorAdjuster : MonoBehaviour
             valueToLerp = Mathf.Lerp(startvalue, endvalue, timeElapsed / lerpDuration);
             brightnessManager.SetBrightnessLevel(valueToLerp);
             timeElapsed += 1;
-            text.text = valueToLerp.ToString();
+           
             yield return null;
         }
         valueToLerp = endvalue;
@@ -42,6 +42,7 @@ public class LightsensorAdjuster : MonoBehaviour
 
     void AdjustBrightness(float val)
     {
+        text.text = val.ToString();
             if(val < 10 && !isAnimating)
             {
                 float startvalue = brightnessManager.lightInScene.Amount;
