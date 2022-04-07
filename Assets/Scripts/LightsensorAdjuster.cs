@@ -42,7 +42,7 @@ public class LightsensorAdjuster : MonoBehaviour
 
     void AdjustBrightness(float val)
     {
-            if(val < 10 && !isAnimating & brightnessManager.lightInScene.Amount == 0)
+            if(val < 10 && !isAnimating)
             {
                 float startvalue = brightnessManager.lightInScene.Amount;
                 float endvalue = 1;
