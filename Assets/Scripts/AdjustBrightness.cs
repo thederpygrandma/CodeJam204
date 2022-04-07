@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class AdjustBrightness : MonoBehaviour
 {
@@ -15,13 +16,20 @@ public class AdjustBrightness : MonoBehaviour
     private ToggleButton toggleButton;
     private bool isOn = false;
     BrightnessManager brightnessManager;
+    Quaternion referenceRotation;
+    float tresh = 0.5f;
+    float lightval = 0.007f;
+
+    bool isSet = false;
 
     private void Start()
     {
         sensorManager = SensorManager.Instance;
         brightnessManager = BrightnessManager.Instance;
-        sensorManager.OnAttitude += AdjustSliderBrightness;
+        sensorManager.OnAcceleration += AdjustSliderBrightness;
         toggleButton.Clicked += OnToggleButtonClicked;
+        Input.compass.enabled = true;
+        Input.location.Start();
     }
 
     private void Update()
@@ -31,24 +39,29 @@ public class AdjustBrightness : MonoBehaviour
 
     private void OnDisable()
     {
-        sensorManager.OnAttitude -= AdjustSliderBrightness;
+        sensorManager.OnAcceleration -= AdjustSliderBrightness;
     }
     
 
     void OnToggleButtonClicked(bool isOn)
     {
-        this.isOn = isOn;
+        this.isOn = isOn;       
     }
-    void AdjustSliderBrightness(Quaternion q)
+    void AdjustSliderBrightness(Vector3 vec)
     {
-        debugtxt.text = $"{q.x}, {q.y}, {q.z}";
         if (isOn)
         {
-            slider.value = q.x * 2f;
-            brightnessManager.SetBrightnessLevel(q.x * 2f);
+            debugtxt.text = vec.ToString();
+            if (vec.x > tresh)
+            {
+                slider.value += lightval;
+                brightnessManager.SetBrightnessLevel(slider.value);
+            } 
+            if (vec.x < -0.5)
+            {
+                slider.value -= lightval;
+                brightnessManager.SetBrightnessLevel(slider.value);
+            }
         }
-        else
-            brightnessManager.SetBrightnessLevel(slider.value);
     }
-
 }
