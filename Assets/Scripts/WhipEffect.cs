@@ -15,7 +15,7 @@ public class WhipEffect : MonoBehaviour
     [SerializeField]
     private ToggleButton toggleAccelButton;
     private bool isOn = false;
-    private float waitTime;
+    private float waitTime = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +34,7 @@ public class WhipEffect : MonoBehaviour
 
     IEnumerator ToggleHold(float waitTime)
     {
-        trigger = true;
         yield return new WaitForSeconds(waitTime);
-            trigger = false;
     }
     void Whatever(Vector3 vector)
     {
@@ -52,7 +50,6 @@ public class WhipEffect : MonoBehaviour
                     FLM.ToggleLight();
                     sound.PlaySound();
                     StartCoroutine(ToggleHold(waitTime));
-
                 }
             }
         }
