@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ButtonScene.unity
     guid: 5bf881b82772f5548b71d9d3fb402f50
+  - enabled: 1
+    path: Assets/Scenes/BrigtnessSliderUI.unity
+    guid: 398a9623a5dd8439bb67073990008b10
+  - enabled: 1
+    path: Assets/Scenes/S8+.unity
+    guid: 13e0857c9bc5a4314906ba0c40971cae
+  - enabled: 1
+    path: Assets/Scenes/canvas.unity
+    guid: 1e79a66e4d0e01846ae99af0d1f56a2c
   m_configObjects: {}
