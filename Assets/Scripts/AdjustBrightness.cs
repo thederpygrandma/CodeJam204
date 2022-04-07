@@ -9,18 +9,13 @@ public class AdjustBrightness : MonoBehaviour
 {
     [SerializeField]
     Slider slider;
-    [SerializeField]
-    TextMeshProUGUI debugtxt;
     SensorManager sensorManager;
     [SerializeField]
     private ToggleButton toggleButton;
     private bool isOn = false;
     BrightnessManager brightnessManager;
-    Quaternion referenceRotation;
-    float tresh = 0.5f;
-    float lightval = 0.007f;
-
-    bool isSet = false;
+    readonly float tresh = 0.5f;
+    readonly float lightval = 0.007f;
 
     private void Start()
     {
@@ -40,18 +35,26 @@ public class AdjustBrightness : MonoBehaviour
     private void OnDisable()
     {
         sensorManager.OnAcceleration -= AdjustSliderBrightness;
+        toggleButton.Clicked -= OnToggleButtonClicked;
     }
     
-
+    /// <summary>
+    /// If the button is clicked it sets isOn to true
+    /// </summary>
+    /// <param name="isOn">The variable of the toggle button</param>
     void OnToggleButtonClicked(bool isOn)
     {
         this.isOn = isOn;       
     }
+
+    /// <summary>
+    /// Adjusts the brightness of the screen depending on the slider value. If isOn is true
+    /// brightness is dependent on the accelrometer
+    /// </summary>
+    /// <param name="vec">The acceleration of the device</param>
     void AdjustSliderBrightness(Vector3 vec)
     {
-        if (isOn)
-        {
-            debugtxt.text = vec.ToString();
+        if (isOn) {
             if (vec.x > tresh)
             {
                 slider.value += lightval;
@@ -62,6 +65,8 @@ public class AdjustBrightness : MonoBehaviour
                 slider.value -= lightval;
                 brightnessManager.SetBrightnessLevel(slider.value);
             }
+        } else {
+            brightnessManager.SetBrightnessLevel(slider.value);
         }
     }
 }
