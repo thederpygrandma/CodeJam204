@@ -14,12 +14,11 @@ public class SoundManager : SingletonPattern<SoundManager>
         audioSource = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// Plays the clip one time in its entirety 
+    /// </summary>
     public void PlaySound()
     {
         audioSource.PlayOneShot(clip);
-    }
-    public void Stop()
-    {
-        audioSource.Stop();
     }
 }
