@@ -30,7 +30,7 @@ public class WhipEffect : MonoBehaviour
     /// <summary>
     /// Controls the toggle function of the toggle button for controlling the torch with the accelerometer
     /// </summary>
-    /// <param name="isOn"></param>
+    /// <param name="isOn">Toggle button's current state</param>
     private void OnToggleAccelClicked(bool isOn)
     {
 
@@ -41,7 +41,7 @@ public class WhipEffect : MonoBehaviour
     /// <summary>
     /// Starts a coroutine that creates a slight delay to turn on the torch
     /// </summary>
-    /// <param name="waitTime"></param>
+    /// <param name="waitTime">Time in seconds</param>
     /// <returns></returns>
     IEnumerator ToggleHold(float waitTime)
     {
@@ -50,7 +50,10 @@ public class WhipEffect : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
     }
 
-    // Triggers the torch if conditions are met
+    /// <summary>
+    /// Triggers the torch if conditions are met
+    /// </summary>
+    /// <param name="vector">The Vector3 value of the accelerometer</param>
     void AccelerationCheck(Vector3 vector)
     {
         if (isOn)
