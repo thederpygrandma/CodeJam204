@@ -22,7 +22,6 @@ public class ToggleButton : MonoBehaviour
 
     private int mode = -1;
 
-    private RectTransform _rect;
     private Button _button;
     private Image _buttonImage;
     private GameObject _buttonCircle;
@@ -33,8 +32,6 @@ public class ToggleButton : MonoBehaviour
         _button = GetComponent<Button>();
         _buttonImage = GetComponent<Image>();
         _buttonCircle = transform.GetChild(0).gameObject;
-
-        _rect = _buttonCircle.GetComponent<RectTransform>();
 
         _buttonCircleImage = _buttonCircle.GetComponent<Image>();
 
