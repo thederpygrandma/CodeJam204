@@ -42,7 +42,8 @@ public class ScrollBarLoop : MonoBehaviour
             distReposition[i] = center.GetComponent<RectTransform>().position.x - bttn[i].GetComponent<RectTransform>().position.x;
             distance[i] = Mathf.Abs(distReposition[i]);
 
-            if (distReposition[i] > 200)
+            //Through trial and error, the values of the below if-statements were adjusted to fit our specific screen size.
+            if (distReposition[i] > 5)
             {
                 float curX = bttn[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttn[i].GetComponent<RectTransform>().anchoredPosition.y;
@@ -51,7 +52,7 @@ public class ScrollBarLoop : MonoBehaviour
                 bttn[i].GetComponent<RectTransform>().anchoredPosition = newAnchorPos;
             }
 
-            if (distReposition[i] < -200)
+            if (distReposition[i] < -5)
             {
                 float curX = bttn[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttn[i].GetComponent<RectTransform>().anchoredPosition.y;
