@@ -21,7 +21,6 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
             AndroidJavaObject cameraParameters = camera1.Call<AndroidJavaObject>("getParameters");
             cameraParameters.Call("setFlashMode", "torch");
             camera1.Call("setParameters", cameraParameters);
-            ///FIX///// 
             camera1.Call("startPreview");
             active = true;
         }
@@ -32,11 +31,17 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
 
     }
 
+    /// <summary>
+    /// this method ensures that when the application closes the flashlight will also turn off
+    /// </summary>
     void OnDestroy()
     {
         FL_Stop();
     }
 
+    /// <summary>
+    /// this method will turn off the flashlight if the flashlight is currently available
+    /// </summary>
     public void FL_Stop()
     {
 
@@ -51,6 +56,9 @@ public class FlashLightManager : SingletonPattern<FlashLightManager>
             Debug.LogError("[CameraParametersAndroid] Camera not available");
         }
     }
+    /// <summary>
+    /// this method will check if the flashlight is currently active. If it is active, the flashlight will be turned off, otherwise it will turn it off
+    /// </summary>
     public void ToggleLight()
     {
         if (active)
