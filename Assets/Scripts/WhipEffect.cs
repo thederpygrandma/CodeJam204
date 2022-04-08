@@ -50,7 +50,10 @@ public class WhipEffect : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
     }
 
-    // Triggers the torch if conditions are met
+    /// <summary>
+    /// Triggers the torch if conditions are met
+    /// </summary>
+    /// <param name="vector">The Vector3 value of the accelerometer</param>
     void AccelerationCheck(Vector3 vector)
     {
         if (isOn)
