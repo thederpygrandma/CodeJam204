@@ -1245,7 +1245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 00b4d19d936e44113b333d056141bd1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b415b8ae340c242b6b3c9fc730e48f3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1287,7 +1287,7 @@ GameObject:
   - component: {fileID: 8017772956482190912}
   - component: {fileID: 8017772956482190913}
   m_Layer: 5
-  m_Name: Light
+  m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
