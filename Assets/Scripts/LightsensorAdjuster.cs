@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class LightsensorAdjuster : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class LightsensorAdjuster : MonoBehaviour
     SensorManager SensorManager;
     float timeElapsed;
     float valueToLerp;
-    public TextMeshProUGUI text;
     bool isAnimating = false;
 
 
@@ -42,7 +40,6 @@ public class LightsensorAdjuster : MonoBehaviour
 
     void AdjustBrightness(float val)
     {
-        text.text = val.ToString();
             if(val < 10 && !isAnimating)
             {
                 float startvalue = brightnessManager.lightInScene.Amount;
