@@ -43,13 +43,15 @@ public class ToggleButton : MonoBehaviour
 
         _button.onClick.AddListener(StartAnimation);
     }
-
+    /// <summary>
+    /// Starts animating the circle of the button
+    /// </summary>
     private void StartAnimation()
     {
         if (isAnimating) return;
 
         isOn = (mode == -1) ? true : false;
-
+        
         Vector3 pos = _buttonCircle.transform.localPosition;
 
         StartCoroutine(LinearInterpolation(pos.x, -pos.x, _animationDuration));
@@ -63,6 +65,13 @@ public class ToggleButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts the transition of the circle in the button
+    /// </summary>
+    /// <param name="startPosition"> The start position of the button</param>
+    /// <param name="endPosition">The end position of the button</param>
+    /// <param name="duration">The duration it takes to go from the start to end position</param>
+    /// <returns></returns>
     IEnumerator LinearInterpolation(float startPosition, float endPosition, float duration)
     {
         // https://gamedevbeginner.com/the-right-way-to-lerp-in-unity-with-examples/
@@ -70,10 +79,12 @@ public class ToggleButton : MonoBehaviour
         float timeElapsed = 0;
         while (timeElapsed < duration)
         {
+            //changes the position of the circle over time
             _buttonCircle.transform.localPosition = new Vector3(Mathf.Lerp(startPosition, endPosition, timeElapsed / duration), 0, 0);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        // snaps the circle position to the end position
         _buttonCircle.transform.localPosition = new Vector2(endPosition, 0);
         isAnimating = false;
     }
