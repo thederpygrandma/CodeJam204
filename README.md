@@ -13,6 +13,8 @@ Made with ❤️ by group 204
 
 # What is where
 
+All the documentation and diagrams can be seen in the the "Documentation" folder and the execuatable app can be seen in  the "App Executable" folder.  
+
 The BrightnessSliderUI (first scene), has the functionality of adjusting the brightness of the phone's screen light through the use of the accelerometer or by using the slider. The toggle button turns on and off this feature.'
 
 The FlashLightScene (second scene), has the functionality of turning on/off the phone's flashlight\* via a "whip effect" (using the accelerometer). This feature can be toggled on/off with the toggle button. This scene also contains
