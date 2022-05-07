@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System;
 
 public class TimerClass
 {
@@ -47,31 +45,4 @@ public class TimerClass
 
 }
 
-public class SaveToJson
-{
-    private readonly string _fileName = "/timers.json";
-    public void WriteTimersToJson()
-    {
-        var jsonString = JsonUtility.ToJson(TimerClass.Timers);
-        File.WriteAllText(Application.persistentDataPath + _fileName, jsonString);
-    }
 
-    public void ReadTimersToJson()
-    {
-        File.ReadAllText(_fileName);
-    }
-}
-
-public class SaveInputs
-{
-    [SerializeField] private TMP_InputField nameInput;
-    [SerializeField] private TMP_InputField countInput;
-    
-    public void SaveInput()
-    {
-        var timeName = nameInput.name;
-        var timeNumber = int.Parse(countInput.text);
-
-        TimerClass.Timers.Add(new TimerClass(timeName, timeNumber));
-    }
-}
