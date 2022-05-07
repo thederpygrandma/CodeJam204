@@ -20,8 +20,10 @@ public class SaveInputs : MonoBehaviour
         var timeName = nameInput.name;
         var timeNumber = int.Parse(countInput.text);
 
+        SaveToJson jsonFile = new SaveToJson();
         TimerClass.Timers.Add(new TimerClass(timeName, timeNumber));
         PrintInput();
+        jsonFile.WriteTimersToJson();
     }
 
     private static void PrintInput()
