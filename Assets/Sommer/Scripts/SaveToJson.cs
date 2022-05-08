@@ -5,15 +5,18 @@ using System.IO;
 
 public class SaveToJson
 {
+    private string _filePath = @"C:\Unity stuff";
     private readonly string _fileName = "/timers.json";
     public void WriteTimersToJson()
     {
-        var jsonString = JsonUtility.ToJson(TimerClass.Timers);
-        File.WriteAllText(Application.persistentDataPath + _fileName, jsonString);
+        var outputString = JsonUtility.ToJson(TimerClass.Timers);
+        File.WriteAllText(Application.persistentDataPath + _fileName, outputString);
+        Debug.Log("File has been saved as json file at: " + Application.persistentDataPath);
+        Debug.Log("File has been saved with "+TimerClass.Timers.Count+" amount of numbers in the list.");
     }
 
     public void ReadTimersToJson()
     {
-        File.ReadAllText(_fileName);
+        var inputString = File.ReadAllText(_fileName);
     }
 }
