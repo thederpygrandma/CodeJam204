@@ -6,10 +6,15 @@ public class GPSManager : SingletonPattern<GPSManager>
 {
     public float latitude;
     public float longitude;
+    public float savedLatitude;
+    public float savedLongitude;
     private int maxWait = 20;
+    IEnumerator coroutine;
 
     private IEnumerator Start()
     {
+        coroutine = UpdateLocation();
+
         if (!Input.location.isEnabledByUser)
             yield break;
 
@@ -21,7 +26,7 @@ public class GPSManager : SingletonPattern<GPSManager>
             maxWait--;
         }
 
-        if (maxWait <= 0)
+        if (maxWait < 1)
         {
             print("Timed out");
             yield break;
@@ -33,8 +38,40 @@ public class GPSManager : SingletonPattern<GPSManager>
             yield break;
         }
 
+        savedLatitude = Input.location.lastData.latitude;
+        savedLongitude = Input.location.lastData.longitude;
+
+        Debug.Log(savedLatitude);
+        Debug.Log(savedLongitude);
+
         latitude = Input.location.lastData.latitude;
         longitude = Input.location.lastData.longitude;
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator UpdateLocation()
+    {
+        float updateWaitTime = 2f; //Every  3 seconds
+        WaitForSeconds updateTime = new WaitForSeconds(updateWaitTime);
+
+        while (true)
+        {
+            latitude = Input.location.lastData.latitude;
+            longitude = Input.location.lastData.longitude;
+            yield return updateTime;
+        }
+
+        void StopGPS()
+        {
+            Input.location.Stop();
+            StopCoroutine(coroutine);
+        }
+
+        void OnDisable()
+        {
+            StopGPS();
+        }
+
     }
 
     
