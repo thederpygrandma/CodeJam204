@@ -1,61 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3477769525222723415
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3477769525222723417}
-  - component: {fileID: 3477769525222723414}
-  m_Layer: 0
-  m_Name: ScrollControl
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3477769525222723417
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477769525222723415}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71.31614, y: -1481.7994, z: -416.11566}
-  m_LocalScale: {x: 1.2945403, y: 7.753172, z: 0.9433962}
-  m_Children: []
-  m_Father: {fileID: 7200961610631900696}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3477769525222723414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3477769525222723415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3cb84066a68de42aa88c1aa9817505, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 7200961610631900696}
-  bttn:
-  - {fileID: 7200961611186101612}
-  - {fileID: 7200961611565107256}
-  - {fileID: 7200961610935023486}
-  - {fileID: 7200961610906357103}
-  - {fileID: 7200961611767113820}
-  - {fileID: 7200961609680949023}
-  - {fileID: 7200961611666003319}
-  - {fileID: 8449600769556091844}
-  center: {fileID: 7200961609724881885}
-  distance: []
-  distReposition: []
 --- !u!1 &3477769526006697110
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +119,7 @@ Transform:
   m_LocalScale: {x: 1.369452, y: 8.201827, z: 0.9979881}
   m_Children: []
   m_Father: {fileID: 7200961610631900696}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5948156211409917314
 MonoBehaviour:
@@ -471,7 +415,6 @@ RectTransform:
   m_Children:
   - {fileID: 3477769526006697113}
   - {fileID: 7200961609724881885}
-  - {fileID: 3477769525222723417}
   - {fileID: 4324025377219846025}
   m_Father: {fileID: 0}
   m_RootOrder: 0

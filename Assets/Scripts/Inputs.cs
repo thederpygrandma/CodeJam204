@@ -90,6 +90,34 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Touch"",
+            ""id"": ""efcfa7c0-a86a-49dc-a2bd-2f639cb6fb02"",
+            ""actions"": [
+                {
+                    ""name"": ""TouchPressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""d9ab15a1-bdde-4909-a298-a5e29f7fc6fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""609bbd8f-9560-4057-8260-267e72361c89"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchPressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -99,6 +127,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Sensors_Acceleration = m_Sensors.FindAction("Acceleration", throwIfNotFound: true);
         m_Sensors_Attitude = m_Sensors.FindAction("Attitude", throwIfNotFound: true);
         m_Sensors_Light = m_Sensors.FindAction("Light", throwIfNotFound: true);
+        // Touch
+        m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
+        m_Touch_TouchPressed = m_Touch.FindAction("TouchPressed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -203,10 +234,47 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         }
     }
     public SensorsActions @Sensors => new SensorsActions(this);
+
+    // Touch
+    private readonly InputActionMap m_Touch;
+    private ITouchActions m_TouchActionsCallbackInterface;
+    private readonly InputAction m_Touch_TouchPressed;
+    public struct TouchActions
+    {
+        private @Inputs m_Wrapper;
+        public TouchActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TouchPressed => m_Wrapper.m_Touch_TouchPressed;
+        public InputActionMap Get() { return m_Wrapper.m_Touch; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TouchActions set) { return set.Get(); }
+        public void SetCallbacks(ITouchActions instance)
+        {
+            if (m_Wrapper.m_TouchActionsCallbackInterface != null)
+            {
+                @TouchPressed.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPressed;
+                @TouchPressed.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPressed;
+                @TouchPressed.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnTouchPressed;
+            }
+            m_Wrapper.m_TouchActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @TouchPressed.started += instance.OnTouchPressed;
+                @TouchPressed.performed += instance.OnTouchPressed;
+                @TouchPressed.canceled += instance.OnTouchPressed;
+            }
+        }
+    }
+    public TouchActions @Touch => new TouchActions(this);
     public interface ISensorsActions
     {
         void OnAcceleration(InputAction.CallbackContext context);
         void OnAttitude(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
+    }
+    public interface ITouchActions
+    {
+        void OnTouchPressed(InputAction.CallbackContext context);
     }
 }

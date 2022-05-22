@@ -1,21 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 
 //Code was from the tutorial series: https://www.youtube.com/watch?v=9B7ahj1kaYs
 //and: https://www.youtube.com/watch?v=jWbAaBEQpvE&t=318s
 //and: https://www.youtube.com/watch?v=2m7pnTC0seo
 
-public class ScrollBarLoop : MonoBehaviour
+[RequireComponent(typeof(ScrollRect))]
+public class ScrollBarLoop : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
+    private ScrollRect scrollRect;
+    private RectTransform scrollContent;
+    private RectTransform scrollViewport;
+    [SerializeField]
+    private RectTransform centerRect;
+    
+    private RectTransform[] scrollElements;
+    private float centerPosX;
 
+    [Header("Content Properties")] 
+    [SerializeField]
+    private int StartElement;
+    [SerializeField] 
+    private float snapAnimationDuration;
+
+    private IEnumerator LerpAnimation;
+
+    private HorizontalLayoutGroup layoutGroup;
+
+    /*
     public RectTransform panel; //to hold the scrollpanel
     public Button[] bttn; //to call the buttons
     public RectTransform center; //center to compare the distance for each button
 
-
+    Button chosenBtn = null;
 
     public float[] distance; // all buttons' distance to the center 
     public float[] distReposition;
@@ -23,26 +46,133 @@ public class ScrollBarLoop : MonoBehaviour
     private int bttnDistance; // will hold the distance between the buttons
     private int minButtonNum; // to hold the number of the button, with smallest distance to center
     private int bttnLength;
-
-    // Start is called before the first frame update
-    void Start()
+    */
+    
+    private void Awake()
     {
+        scrollRect = GetComponent<ScrollRect>();
+    }
+
+    private void Start()
+    {
+        scrollContent = scrollRect.content ? scrollRect.content : throw new NullReferenceException("ScrollRect component is missing a content component!");
+        scrollViewport = scrollRect.viewport ? scrollRect.viewport : throw new NullReferenceException("ScrollRect component is missing a viewport component!");
+        layoutGroup = scrollContent.GetComponent<HorizontalLayoutGroup>();
+        scrollElements = GetElements();
+
+        centerPosX = 0;
+
+        //RepositionContentToElement(scrollElements[1]);
+
+        /*
         bttnLength = bttn.Length;
         distance = new float[bttnLength];
         distReposition = new float[bttnLength];
 
         //get distance between buttons
         bttnDistance = (int)Mathf.Abs(bttn[1].GetComponent<RectTransform>().anchoredPosition.x - bttn[0].GetComponent<RectTransform>().anchoredPosition.x);
+        */
+
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
+    {
+        scrollRect.onValueChanged.AddListener(OnScrollChanged);
+    }
+
+    private void OnDisable()
+    {
+        scrollRect.onValueChanged.RemoveListener(OnScrollChanged);
+    }
+
+    private void OnScrollChanged(Vector2 pos)
+    {
+        for (int i = 0; i < scrollElements.Length; i++)
+        {
+            IsElementOutOfBounds(i, scrollElements[i]);
+        }
+    }
+
+    private RectTransform GetClosestElementToCenter()
+    {
+        var closestElement = scrollElements[0];
+        var closestDistance = Math.Abs(scrollElements[0].position.x - centerPosX);
+        foreach (var scrollElement in scrollElements)
+        {
+            var scrollElementDistToCenterX = Math.Abs(scrollElement.position.x - centerPosX) ;
+            if (scrollElementDistToCenterX < closestDistance)
+            {
+                closestDistance = scrollElementDistToCenterX;
+                closestElement = scrollElement;
+            }
+        }
+        return closestElement;
+    }
+
+    private RectTransform[] GetElements()
+    {
+        var elements = new RectTransform[scrollContent.childCount];
+        
+        for (int i = 0; i < elements.Length; i++)
+        {
+            elements[i] = scrollContent.GetChild(i).GetComponent<RectTransform>();
+        }
+
+        return elements;
+    }
+    
+    private IEnumerator LerpToElement(float startPosition, float endPosition, float duration)
+    {
+        float timeElapsed = 0;
+        while (timeElapsed < duration)
+        {
+            //changes the position of the circle over time
+            scrollContent.position = new Vector2(Mathf.Lerp(startPosition, endPosition, timeElapsed / duration), scrollContent.position.y);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        // snaps the circle position to the end position
+        scrollContent.position = new Vector2(endPosition, scrollContent.position.y);
+    }
+    
+    private void RepositionContentToElement(Transform element)
+    {
+        var contentPos = scrollContent.position;
+
+        LerpAnimation = LerpToElement(contentPos.x, contentPos.x - element.position.x, snapAnimationDuration);
+        StartCoroutine(LerpAnimation);
+        
+        //scrollContent.position = new Vector2(contentPos.x - element.position.x, contentPos.y);
+    }
+
+    private bool IsElementOutOfBounds(int index, RectTransform element)
+    {
+        float scrollViewPosX = scrollViewport.position.x;
+        var scrollViewRectWidth = scrollViewport.rect.width;
+        float maxPos = scrollViewPosX + (scrollViewRectWidth / 2);
+        float minPos = scrollViewPosX - (scrollViewRectWidth / 2);
+
+        /*
+        
+        if (distanceFromCenter > maxPos || distanceFromCenter < minPos)
+        {
+            Debug.Log("Out of bounds: " + distanceFromCenter);
+            return true;
+        }
+        */
+
+        return false;
+    }
+
+    /*
+    private void Update()
     {
         for (int i = 0; i < bttn.Length; i++)
         {
             // takes the distance between the center and the button so if the button is in negative position it will display a negative value 
 
-            distReposition[i] = center.GetComponent<RectTransform>().position.x - bttn[i].GetComponent<RectTransform>().position.x;
+            distReposition[i] = center.position.x - bttn[i].GetComponent<RectTransform>().position.x;
             //the distance have the same values as the distance reposition but now we have it in absolute numbers
             distance[i] = Mathf.Abs(distReposition[i]);
 
@@ -56,7 +186,7 @@ public class ScrollBarLoop : MonoBehaviour
             //if the button gets out of the border that is preset; 5 to -5 which is also the distance from the center
             //it will take its "curX"/"current x position" + (the bttnLength and multiply it with the bttndistance)
             //it will then move the button with the values the variable gives it and push it to the side, while still staying at the same y position.
-            if (distReposition[i] > 5)
+            if (distReposition[i] > 100)
             {
                 float curX = bttn[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttn[i].GetComponent<RectTransform>().anchoredPosition.y;
@@ -65,7 +195,7 @@ public class ScrollBarLoop : MonoBehaviour
                 bttn[i].GetComponent<RectTransform>().anchoredPosition = newAnchorPos;
             }
 
-            if (distReposition[i] < -5)
+            if (distReposition[i] < -100)
             {
                 float curX = bttn[i].GetComponent<RectTransform>().anchoredPosition.x;
                 float curY = bttn[i].GetComponent<RectTransform>().anchoredPosition.y;
@@ -90,11 +220,21 @@ public class ScrollBarLoop : MonoBehaviour
             }
         }
         // if we have released the mouse
-        if (!dragging)
+        if (!dragging && chosenBtn == null)
         {
+            chosenBtn = bttn[minButtonNum];
+            float pos = -bttn[minButtonNum].GetComponent<RectTransform>().anchoredPosition.x;
             // LerpToBttn takes the the bttn to another location if it scrolled out of the border that was made above
             // the bttn then gets set closer to another bttn but on the other side of the scrollwheel.
-            LerpToBttn (bttn[minButtonNum].GetComponent<RectTransform>().anchoredPosition.x);
+            LerpToBttn (pos);
+        }
+
+        if(chosenBtn != null)
+        {
+            if(chosenBtn.GetComponent<RectTransform>().anchoredPosition.x == 0)
+            {
+                chosenBtn = null;
+            }
         }
     }
 
@@ -103,7 +243,7 @@ public class ScrollBarLoop : MonoBehaviour
         // this function lerps the float of the newX by the position value of the panel
         // the 0f is the actual movement speed of the panel
         // which is 0 because if it is above 0 it will move everytime we scroll on it
-        float newX = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 0f);
+        float newX = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 5f);
         Vector2 newPosition = new Vector2 (newX, panel.anchoredPosition.y);
 
         // this anchor the position of the panel to a new position
@@ -118,6 +258,18 @@ public class ScrollBarLoop : MonoBehaviour
     public void EndDrag()
     {
         dragging=false;
+    }
+    */
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if(LerpAnimation != null) StopCoroutine(LerpAnimation);
+        scrollRect.inertia = false;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        RepositionContentToElement(GetClosestElementToCenter());
+        scrollRect.inertia = true;
     }
 }
 
