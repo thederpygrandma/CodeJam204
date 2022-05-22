@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff3cb84066a68de42aa88c1aa9817505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerRect: {fileID: 1315717955}
   StartElement: 0
   snapAnimationDuration: 0.5
 --- !u!224 &636240714 stripped
@@ -1207,6 +1208,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7200961610631900696, guid: 8e25bdf2b485e4eb4ac2956c36da16ec, type: 3}
   m_PrefabInstance: {fileID: 1952197797}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1315717955 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7200961609724881885, guid: 8e25bdf2b485e4eb4ac2956c36da16ec, type: 3}
+  m_PrefabInstance: {fileID: 1952197797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1440581752 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 234075347312646418, guid: 3743bc047b6492245aa5c387245ac9e8, type: 3}
@@ -1397,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200961609724881885, guid: 8e25bdf2b485e4eb4ac2956c36da16ec, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 900
+      value: 518.72
       objectReference: {fileID: 0}
     - target: {fileID: 7200961609776069940, guid: 8e25bdf2b485e4eb4ac2956c36da16ec, type: 3}
       propertyPath: m_AnchorMax.x
