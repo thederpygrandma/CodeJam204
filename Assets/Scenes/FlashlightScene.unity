@@ -1286,6 +1286,8 @@ GameObject:
   - component: {fileID: 8017772956482190914}
   - component: {fileID: 8017772956482190912}
   - component: {fileID: 8017772956482190913}
+  - component: {fileID: 8017772956482190917}
+  - component: {fileID: 8017772956482190916}
   m_Layer: 5
   m_Name: Room
   m_TagString: Untagged
@@ -1293,6 +1295,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8017772956482190916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017772956482190915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173171a19dd894a2c81ef4b8f1a0b274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0.4
+--- !u!225 &8017772956482190917
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017772956482190915}
+  m_Enabled: 1
+  m_Alpha: 0.5
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &8120928816969569743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1310,7 +1337,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.41545945}
   m_AnchorMax: {x: 1, y: 0.41545945}
-  m_AnchoredPosition: {x: -181.69989, y: 87.18817}
+  m_AnchoredPosition: {x: -181.69989, y: 36.088}
   m_SizeDelta: {x: 229.8662, y: 118.146}
   m_Pivot: {x: 0.49999928, y: 0.49999994}
 --- !u!114 &8677742679547153105
@@ -1357,13 +1384,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4639682674279138369}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 8017772956482190916}
+        m_TargetAssemblyTypeName: FadeWHOOP, Assembly-CSharp
+        m_MethodName: Fade
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
