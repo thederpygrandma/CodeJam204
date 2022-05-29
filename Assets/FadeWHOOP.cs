@@ -11,7 +11,7 @@ public class FadeWHOOP : MonoBehaviour
     {
         var canvGroup = GetComponent<CanvasGroup>();
 
-        //Toggle the end value depending on the faded state ( from 1 to 0)
+        //Toggle the end value depending on the faded state ( from 0.5 to 1)
         StartCoroutine(DoFade(canvGroup, canvGroup.alpha, mFaded ? 0.5f : 1));
 
         //Toggle the faded state
@@ -19,7 +19,7 @@ public class FadeWHOOP : MonoBehaviour
 
 
     }
-    public IEnumerator DoFade(CanvasGroup canvGroup, float start, float end)//Runto complition beforex
+    public IEnumerator DoFade(CanvasGroup canvGroup, float start, float end)
     {
         float counter = 0f;
 
